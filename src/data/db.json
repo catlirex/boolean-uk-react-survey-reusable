@@ -1,0 +1,26 @@
+{
+  "answers": [
+    {
+      "bestFeatures": [
+        "colour",
+        "sound",
+        "logo",
+        "size"
+      ],
+      "worstFeatures": [
+        "colour"
+      ],
+      "consistency": "1",
+      "colour": "1",
+      "logo": null,
+      "timeSpent": [
+        "bathing",
+        "swimming"
+      ],
+      "review": "nth",
+      "username": "cat",
+      "email": "",
+      "id": 2
+    }
+  ]
+}
