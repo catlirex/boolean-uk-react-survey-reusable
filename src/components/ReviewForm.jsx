@@ -19,8 +19,10 @@ function ReviewForm({
     review: "",
     username: "",
     email: "",
+    phone: "",
   };
   const [reviewForm, setReviewFrom] = useState(initialForm);
+  const [pageNumber, setPageNumber] = useState(1);
 
   useEffect(() => {
     if (editingFormIndex !== null) setReviewFrom(resultList[editingFormIndex]);
@@ -86,88 +88,120 @@ function ReviewForm({
   return (
     <form className="form" onSubmit={(e) => handleSubmit(e)}>
       <h2>Tell us what you think about your rubber duck!</h2>
+      {pageNumber === 1 ? (
+        <div>
+          <CheckBoxGp
+            formValue={reviewForm.bestFeatures}
+            reviewForm={reviewForm}
+            setReviewFrom={setReviewFrom}
+            inputName="bestFeatures"
+            answersSet={answersSet}
+            questionString="What would you say that are the best features of your rubber duck?"
+          />
 
-      <CheckBoxGp
-        formValue={reviewForm.bestFeatures}
-        reviewForm={reviewForm}
-        setReviewFrom={setReviewFrom}
-        inputName="bestFeatures"
-        answersSet={answersSet}
-        questionString="What would you say that are the best features of your rubber duck?"
-      />
+          <CheckBoxGp
+            formValue={reviewForm.worstFeatures}
+            reviewForm={reviewForm}
+            setReviewFrom={setReviewFrom}
+            inputName="worstFeatures"
+            answersSet={answersSet}
+            questionString="What would you say that are the worst bits of your rubber duck?"
+          />
+          <RadioGp_OneToFour
+            formValue={reviewForm.consistency}
+            reviewForm={reviewForm}
+            setReviewFrom={setReviewFrom}
+            inputName="consistency"
+            questionString="How do you rate your rubber duck consistency?"
+          />
+          <RadioGp_OneToFour
+            formValue={reviewForm.colour}
+            reviewForm={reviewForm}
+            setReviewFrom={setReviewFrom}
+            inputName="colour"
+            questionString="How do you rate your rubber duck colour?"
+          />
+          <RadioGp_OneToFour
+            formValue={reviewForm.logo}
+            reviewForm={reviewForm}
+            setReviewFrom={setReviewFrom}
+            inputName="logo"
+            questionString="How do you rate your rubber duck logo?"
+          />
 
-      <CheckBoxGp
-        formValue={reviewForm.worstFeatures}
-        reviewForm={reviewForm}
-        setReviewFrom={setReviewFrom}
-        inputName="worstFeatures"
-        answersSet={answersSet}
-        questionString="What would you say that are the worst bits of your rubber duck?"
-      />
-      <RadioGp_OneToFour
-        formValue={reviewForm.consistency}
-        reviewForm={reviewForm}
-        setReviewFrom={setReviewFrom}
-        inputName="consistency"
-        questionString="How do you rate your rubber duck consistency?"
-      />
-      <RadioGp_OneToFour
-        formValue={reviewForm.colour}
-        reviewForm={reviewForm}
-        setReviewFrom={setReviewFrom}
-        inputName="colour"
-        questionString="How do you rate your rubber duck colour?"
-      />
-      <RadioGp_OneToFour
-        formValue={reviewForm.logo}
-        reviewForm={reviewForm}
-        setReviewFrom={setReviewFrom}
-        inputName="logo"
-        questionString="How do you rate your rubber duck logo?"
-      />
+          <CheckBoxGp
+            formValue={reviewForm.timeSpent}
+            reviewForm={reviewForm}
+            setReviewFrom={setReviewFrom}
+            inputName="timeSpent"
+            answersSet={answersSetTwo}
+            questionString="How do you like to spend time with your rubber duck"
+          />
 
-      <CheckBoxGp
-        formValue={reviewForm.timeSpent}
-        reviewForm={reviewForm}
-        setReviewFrom={setReviewFrom}
-        inputName="timeSpent"
-        answersSet={answersSetTwo}
-        questionString="How do you like to spend time with your rubber duck"
-      />
+          <label>
+            What else have you got to say about your rubber duck?
+            <textarea
+              name="review"
+              cols="30"
+              rows="10"
+              value={reviewForm.review}
+              onChange={(e) => {
+                handleChange(e);
+              }}
+            ></textarea>
+          </label>
+          <p>Page 1 of 2</p>
+          <button
+            className="form__submit"
+            type="button"
+            onClick={() => setPageNumber(2)}
+          >
+            Next page
+          </button>
+        </div>
+      ) : null}
 
-      <label>
-        What else have you got to say about your rubber duck?
-        <textarea
-          name="review"
-          cols="30"
-          rows="10"
-          value={reviewForm.review}
-          onChange={(e) => {
-            handleChange(e);
-          }}
-        ></textarea>
-      </label>
+      {pageNumber === 2 ? (
+        <div>
+          <p>Page 2of 2</p>
+          <TextInput
+            questionString="Put your name here (if you feel like it):"
+            type="text"
+            name="username"
+            value={reviewForm.username}
+            onChange={(e) => handleChange(e)}
+          />
+          <TextInput
+            questionString="Leave us your email pretty please??"
+            value={reviewForm.email}
+            type="email"
+            name="email"
+            onChange={(e) => handleChange(e)}
+          />
 
-      <TextInput
-        questionString="Put your name here (if you feel like it):"
-        type="text"
-        name="username"
-        value={reviewForm.username}
-        onChange={(e) => handleChange(e)}
-      />
-      <TextInput
-        questionString="Leave us your email pretty please??"
-        value={reviewForm.email}
-        type="email"
-        name="email"
-        onChange={(e) => handleChange(e)}
-      />
+          <TextInput
+            questionString="Leave us your phone number(I will text you asap)"
+            value={reviewForm.phone}
+            type="phone"
+            name="phone"
+            onChange={(e) => handleChange(e)}
+          />
 
-      <TextInput
-        className="form__submit"
-        type="submit"
-        value="Submit Survey!"
-      />
+          <p>Page 1 of 2</p>
+          <button
+            className="form__submit"
+            type="button"
+            onClick={() => setPageNumber(1)}
+          >
+            Back to page 1
+          </button>
+          <TextInput
+            className="form__submit"
+            type="submit"
+            value="Submit Survey!"
+          />
+        </div>
+      ) : null}
     </form>
   );
 }
